@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <gl/glut.h>
+#include <math.h>
 
 GLfloat rotation = 90.0;
 float posX = 0, posY = 0, posZ = 0;
 bool value = false;
 bool flag = true, flag2 = true;
+float cloud_X = 0;
+float cloud_Y = 0;
+float cloud_X2 = 0;
+float cloud_Y2 = 0;
+int cloudStatus = 1;
 
 void flame()
 {
@@ -133,7 +139,7 @@ void building()
 
 void windowFigure()
 {
-	glColor3f(1.0, 0.8, 0.2);
+	glColor3f(0.58, 0.87, 0.98);
 	float y = .01;
 	for (int i = 0; i < 5; i++)
 	{
@@ -266,6 +272,51 @@ void tree()
 
 }
 
+void DrawCircle(float cx, float cy, float r, int num_segments)
+{
+	glColor3f(0.8,0.8,0.8);
+	glBegin(GL_POLYGON);
+	glPointSize(100.0);
+	for(int ii = 0; ii < num_segments; ii++){
+		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);
+		float x = r * cosf(theta);
+		float y = r * sinf(theta);
+		glVertex2f(x+cx,y+cy);
+	}
+	glEnd();
+	glFlush();
+}
+
+
+void drawCloud()
+{	
+	DrawCircle(0.010, 0.90, 0.03, 1000);
+	DrawCircle(0.035, 0.87, 0.04, 1000);
+	DrawCircle(0.020, 0.85, 0.02, 1000);
+	DrawCircle(0.001, 0.86, 0.03, 1000);
+	
+	DrawCircle(0.110, 0.80, 0.03, 1000);
+	DrawCircle(0.135, 0.77, 0.04, 1000);
+	DrawCircle(0.120, 0.75, 0.02, 1000);
+	DrawCircle(0.101, 0.76, 0.03, 1000);
+}
+
+void cloud()
+{		
+	if(cloudStatus == 1){
+		cloud_X += 0.2;
+	}
+	
+	//if(cloud_X > 1100){
+	//	cloud_X = -650;
+	//}
+	
+	glPushMatrix();
+	glTranslatef(cloud_X, cloud_Y, 0.0);
+	drawCloud();
+	glPopMatrix();
+}
+
 void nasa()
 {
 	glColor3f(0.0, 0.0, 0.0);
@@ -378,6 +429,7 @@ void display(){
 	//end stand
 	
 	tree();
+	cloud();
 
 	//rocket
 	glMatrixMode(GL_MODELVIEW);
@@ -407,6 +459,12 @@ void makedelay(int)
 	display();
 	glutTimerFunc(100, makedelay, 1);
 }
+void resetRocketPosition()
+{
+    posX = 0.0;
+    posY = 0.0;
+    posZ = 0.0;
+}
 
 float move_unit = 0.1f;
 void keyboardown(int key, int x, int y)
@@ -417,7 +475,7 @@ void keyboardown(int key, int x, int y)
 		value = true;
 		break;
 	case GLUT_KEY_DOWN:
-		value = false;
+	resetRocketPosition();
 		break;
 
 
