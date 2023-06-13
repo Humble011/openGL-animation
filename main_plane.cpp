@@ -217,7 +217,7 @@ void roadDivider()
 }
 
 void tree()
-{
+{	
 	//tree
 	glColor3f(0.65,0.19, 0.0);
 	glPointSize(100.0);
@@ -429,6 +429,10 @@ void display(){
 	//end stand
 	
 	tree();
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 868d149ce77c24be062fe75e48c0f49bf79f10d4
 	cloud();
 
 	//rocket
@@ -442,6 +446,7 @@ void display(){
 	nasa();
 
 }
+
 
 
 
