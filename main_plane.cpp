@@ -304,12 +304,12 @@ void drawCloud()
 void cloud()
 {		
 	if(cloudStatus == 1){
-		cloud_X += 0.2;
+		cloud_X += 0.001;
 	}
 	
-	//if(cloud_X > 1100){
-	//	cloud_X = -650;
-	//}
+	if(cloud_X > 1100){
+		cloud_X = -650;
+	}
 	
 	glPushMatrix();
 	glTranslatef(cloud_X, cloud_Y, 0.0);
