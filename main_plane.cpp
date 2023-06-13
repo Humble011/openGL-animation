@@ -307,8 +307,8 @@ void cloud()
 		cloud_X += 0.001;
 	}
 	
-	if(cloud_X > 1100){
-		cloud_X = -650;
+	if(cloud_X > 1){
+		cloud_X = -0.1;
 	}
 	
 	glPushMatrix();
